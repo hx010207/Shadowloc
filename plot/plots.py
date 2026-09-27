@@ -182,10 +182,13 @@ def plot_ablation(ablation_rows, output_dir):
     bars = ax.barh(names, f1s, xerr=cis, color=colors, capsize=4, alpha=0.85)
 
     # Annotate "no FAR guarantee" on Minus Conformal bar
-    for bar, name in zip(bars, names):
-        if name == 'Minus Conformal':
-            ax.text(bar.get_width() + 0.01, bar.get_y() + bar.get_height()/2,
-                    '(no FAR guarantee)', va='center', fontsize=8, color='red')
+    for bar, name, ci in zip(bars, names, cis):
+        if 'Minus Conformal' in name:
+            x_pos = bar.get_width() + (ci if ci is not None else 0) + 0.015
+            ax.text(x_pos, bar.get_y() + bar.get_height()/2,
+                    '[No FAR guarantee]', va='center', fontsize=8.5, color='#c0392b',
+                    fontstyle='italic',
+                    bbox=dict(boxstyle='square,pad=0.2', facecolor='white', edgecolor='none', alpha=0.9))
 
     ax.set_xlabel('Pooled F1 (A1–A5)')
     ax.set_title('Ablation Study — Variant B')

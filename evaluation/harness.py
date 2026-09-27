@@ -337,13 +337,15 @@ def run_experiment(seed, fs=1.0, W=10, alpha=0.05, verbose=False):
         if fusion._fitted:
             X_fus_test = np.column_stack([P_ml, P_rf_w, P_t_w, r_mc_w])
             y_pred_fusion = fusion.predict(X_fus_test)
+            score_fusion = fusion.predict_proba(X_fus_test)
         else:
             y_pred_fusion = y_pred_b
+            score_fusion = P_ml
 
         res = {
             'Variant A': compute_metrics(y_test, y_pred_a, score_a),
             'Variant B': compute_metrics(y_test, y_pred_b, score_b),
-            'Fusion': compute_metrics(y_test, y_pred_fusion, P_ml),
+            'Fusion': compute_metrics(y_test, y_pred_fusion, score_fusion),
             'B0': compute_metrics(y_test, y_pred_b0, P_rf_w + P_t_w),
             'B1': compute_metrics(y_test, y_pred_b1, score_b1),
             'B2': compute_metrics(y_test, y_pred_b2, score_b2),

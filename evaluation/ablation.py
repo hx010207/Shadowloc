@@ -66,6 +66,8 @@ def run_ablation_single(seed, fs=1.0, W=10, alpha=0.05):
         test_sets[att_name] = (X_att, y_att)
 
     results = {}
+    var_b_full = None
+    calib_scores_full = None
 
     for config_name, exclude in CONFIGS.items():
         # Prepare feature subset
@@ -79,16 +81,23 @@ def run_ablation_single(seed, fs=1.0, W=10, alpha=0.05):
             X_tr = _exclude_features(X_train, exclude)
             X_cal = _exclude_features(X_calib, exclude)
 
-        # Train Variant B on this subset
-        var_b = VariantB(input_dim=X_tr.shape[2], epochs=5)
-        var_b.fit(X_tr)
-
-        # Calibrate
-        calib_scores = var_b.score(X_cal)
+        # Train Variant B on this subset (reuse Full model for no_conformal to strictly isolate thresholding)
+        if exclude == 'no_conformal' and var_b_full is not None:
+            var_b = var_b_full
+            calib_scores = calib_scores_full
+        else:
+            var_b = VariantB(input_dim=X_tr.shape[2], epochs=5)
+            var_b.fit(X_tr)
+            calib_scores = var_b.score(X_cal)
+            if config_name == 'Full':
+                var_b_full = var_b
+                calib_scores_full = calib_scores
 
         if exclude == 'no_conformal':
-            # Fixed threshold: mean + 3*sigma
-            threshold = np.mean(calib_scores) + 3 * np.std(calib_scores)
+            # Uncalibrated fixed threshold targeting the nominal alpha=0.05 level
+            # (Note: mean + 3*sigma corresponds to alpha ~ 0.001-0.01 on right-skewed MSE distributions,
+            # which severely starves recall. The nominal fixed baseline is the empirical (1-alpha) percentile.)
+            threshold = np.percentile(calib_scores, (1.0 - alpha) * 100)
         else:
             calibrator = ConformalCalibrator()
             calibrator.fit(calib_scores)

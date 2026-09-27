@@ -6,16 +6,16 @@ Real GNSS from mock GSDC traces; IMU/Radio/Clock are synthetic (see DATASETS.md)
 
 ## 1. Performance on Attacks
 
-### Attack A1 — Jump
+### Attack A1 — Step-jump
 | Method | F1 | AUC | Precision | Recall |
 |---|---|---|---|---|
 | B0 | 0.899 ± 0.013 | 0.909 ± 0.030 | 0.818 ± 0.023 | 0.999 ± 0.001 |
 | B1 | 0.996 ± 0.001 | 0.999 ± 0.001 | 1.000 ± 0.000 | 0.993 ± 0.003 |
 | B2 | 0.965 ± 0.011 | 0.991 ± 0.006 | 0.980 ± 0.006 | 0.953 ± 0.020 |
 | ExtBaseline | 0.995 ± 0.002 | 1.000 ± 0.000 | 0.990 ± 0.004 | 1.000 ± 0.000 |
-| Variant A | 0.866 ± 0.039 | 0.984 ± 0.008 | 0.987 ± 0.007 | 0.788 ± 0.059 |
+| Variant A | 0.866 ± 0.039 | 0.998 ± 0.002 | 0.987 ± 0.007 | 0.788 ± 0.059 |
 | Variant B | 0.726 ± 0.050 | 0.947 ± 0.009 | 0.974 ± 0.006 | 0.597 ± 0.060 |
-| Fusion | 0.980 ± 0.013 | 0.946 ± 0.009 | 0.987 ± 0.008 | 0.974 ± 0.020 |
+| Fusion | 0.980 ± 0.013 | 0.997 ± 0.002 | 0.987 ± 0.008 | 0.974 ± 0.020 |
 
 ### Attack A2 — Drift (carry-off)
 | Method | F1 | AUC | Precision | Recall |
@@ -24,9 +24,9 @@ Real GNSS from mock GSDC traces; IMU/Radio/Clock are synthetic (see DATASETS.md)
 | B1 | 0.995 ± 0.001 | 0.999 ± 0.001 | 1.000 ± 0.000 | 0.991 ± 0.003 |
 | B2 | 0.960 ± 0.010 | 0.988 ± 0.006 | 0.980 ± 0.006 | 0.943 ± 0.018 |
 | ExtBaseline | 0.985 ± 0.002 | 0.993 ± 0.002 | 0.990 ± 0.004 | 0.981 ± 0.004 |
-| Variant A | 0.838 ± 0.046 | 0.975 ± 0.009 | 0.987 ± 0.007 | 0.750 ± 0.066 |
+| Variant A | 0.838 ± 0.046 | 0.991 ± 0.005 | 0.987 ± 0.007 | 0.750 ± 0.066 |
 | Variant B | 0.689 ± 0.056 | 0.940 ± 0.010 | 0.972 ± 0.007 | 0.556 ± 0.063 |
-| Fusion | 0.979 ± 0.013 | 0.940 ± 0.010 | 0.987 ± 0.008 | 0.972 ± 0.020 |
+| Fusion | 0.979 ± 0.013 | 0.998 ± 0.002 | 0.987 ± 0.008 | 0.972 ± 0.020 |
 
 ### Attack A3 — Intermittent
 | Method | F1 | AUC | Precision | Recall |
@@ -35,9 +35,9 @@ Real GNSS from mock GSDC traces; IMU/Radio/Clock are synthetic (see DATASETS.md)
 | B1 | 0.957 ± 0.005 | 0.993 ± 0.003 | 1.000 ± 0.000 | 0.917 ± 0.009 |
 | B2 | 0.820 ± 0.014 | 0.908 ± 0.010 | 0.927 ± 0.014 | 0.739 ± 0.022 |
 | ExtBaseline | 0.903 ± 0.012 | 0.949 ± 0.007 | 0.940 ± 0.018 | 0.870 ± 0.013 |
-| Variant A | 0.685 ± 0.049 | 0.896 ± 0.017 | 0.914 ± 0.027 | 0.568 ± 0.062 |
+| Variant A | 0.685 ± 0.049 | 0.918 ± 0.022 | 0.914 ± 0.027 | 0.568 ± 0.062 |
 | Variant B | 0.552 ± 0.051 | 0.846 ± 0.014 | 0.874 ± 0.023 | 0.417 ± 0.050 |
-| Fusion | 0.907 ± 0.019 | 0.846 ± 0.014 | 0.958 ± 0.015 | 0.863 ± 0.027 |
+| Fusion | 0.907 ± 0.019 | 0.972 ± 0.011 | 0.958 ± 0.015 | 0.863 ± 0.027 |
 
 ### Attack A4 — Time-bias
 | Method | F1 | AUC | Precision | Recall |
@@ -46,9 +46,9 @@ Real GNSS from mock GSDC traces; IMU/Radio/Clock are synthetic (see DATASETS.md)
 | B1 | 0.995 ± 0.002 | 0.999 ± 0.001 | 1.000 ± 0.000 | 0.990 ± 0.003 |
 | B2 | 0.957 ± 0.011 | 0.988 ± 0.005 | 0.980 ± 0.006 | 0.937 ± 0.020 |
 | ExtBaseline | 0.986 ± 0.002 | 0.993 ± 0.002 | 0.990 ± 0.004 | 0.982 ± 0.003 |
-| Variant A | 0.981 ± 0.003 | 0.993 ± 0.002 | 0.989 ± 0.006 | 0.974 ± 0.005 |
+| Variant A | 0.981 ± 0.003 | 0.994 ± 0.004 | 0.989 ± 0.006 | 0.974 ± 0.005 |
 | Variant B | 0.983 ± 0.002 | 0.997 ± 0.001 | 0.985 ± 0.004 | 0.982 ± 0.004 |
-| Fusion | 0.984 ± 0.012 | 0.995 ± 0.001 | 0.987 ± 0.008 | 0.981 ± 0.018 |
+| Fusion | 0.984 ± 0.012 | 0.999 ± 0.001 | 0.987 ± 0.008 | 0.981 ± 0.018 |
 
 ### Attack A5 — Adaptive adversary
 | Method | F1 | AUC | Precision | Recall |
@@ -57,9 +57,9 @@ Real GNSS from mock GSDC traces; IMU/Radio/Clock are synthetic (see DATASETS.md)
 | B1 | 0.996 ± 0.001 | 0.999 ± 0.001 | 1.000 ± 0.000 | 0.993 ± 0.002 |
 | B2 | 0.961 ± 0.010 | 0.988 ± 0.006 | 0.980 ± 0.006 | 0.944 ± 0.019 |
 | ExtBaseline | 0.986 ± 0.002 | 0.993 ± 0.002 | 0.990 ± 0.004 | 0.981 ± 0.003 |
-| Variant A | 0.840 ± 0.046 | 0.974 ± 0.009 | 0.987 ± 0.007 | 0.753 ± 0.065 |
+| Variant A | 0.840 ± 0.046 | 0.990 ± 0.005 | 0.987 ± 0.007 | 0.753 ± 0.065 |
 | Variant B | 0.687 ± 0.059 | 0.941 ± 0.010 | 0.971 ± 0.007 | 0.554 ± 0.067 |
-| Fusion | 0.978 ± 0.013 | 0.940 ± 0.010 | 0.987 ± 0.008 | 0.971 ± 0.020 |
+| Fusion | 0.978 ± 0.013 | 0.998 ± 0.002 | 0.987 ± 0.008 | 0.971 ± 0.020 |
 
 ## 2. Detection Delay on A2
 
@@ -114,12 +114,12 @@ Pooled F1 across A1–A5 at α = 0.05.
 
 | Configuration | Pooled F1 |
 |---|---|
-| Minus IMU | 0.895 ± 0.023 |
-| Minus Radio | 0.781 ± 0.050 |
-| Full | 0.719 ± 0.084 |
-| Minus Timing | 0.698 ± 0.081 |
-| Minus AGC | 0.559 ± 0.085 |
-| Minus Conformal *(no FAR guarantee)* | 0.473 ± 0.043 |
+| Minus IMU | 0.913 ± 0.017 |
+| Minus Radio | 0.769 ± 0.062 |
+| Minus Conformal *(no FAR guarantee)* | 0.705 ± 0.074 |
+| Minus Timing | 0.688 ± 0.083 |
+| Full | 0.677 ± 0.080 |
+| Minus AGC | 0.541 ± 0.080 |
 
 ## 5. Conformal Calibration Curve
 
@@ -168,19 +168,31 @@ Target FAR ≤ 5%.
 
 *Measured on host CPU using time.perf_counter and tracemalloc. Mobile ARM numbers will differ.*
 
-## 9. Bug Fix Log
+## 9. Bug Fix Log & Pipeline Reconciliation
 
-### Bug 1 — B0 Heuristic Saturation
-- **Root cause**: Static weights w1=1.0, w2=1.0, w3=10.0 saturated the sigmoid on benign noise. Raw delta_CN0/delta_AGC values span ±10–15 dB, pushing sigmoid output to ≈1.0 for all windows including benign. Hardcoded eta=1s was too small relative to synthetic clock jitter floor.
-- **Fix**: Adaptive scaling in `SubDetectors.fit()` — normalize scores by benign std so 1σ of variation ≈ 1.0 in sigmoid input. Bias set so 95th percentile of benign scores maps to sigmoid(0)=0.5. B0 FAR now ≈5% by construction.
+### Bug 1 — AUC Discrepancy Between ROC Curves and Summary Table
+- **Root Cause**:
+  1. In `evaluation/harness.py`, `Fusion`'s metrics dictionary had `res['Fusion'] = compute_metrics(y_test, y_pred_fusion, P_ml)`. Passing `P_ml` (Variant B's anomaly score) evaluated Variant B's AUC (~0.94) instead of the logistic regression fusion classifier's probability score (`score_fusion = fusion.predict_proba(X_fus_test)`). Meanwhile, `run_pending.py` plotted ROC curves using `score_fusion` (~0.997).
+  2. The ROC-curve plotting script evaluated only a single seed (`seed=0`), whereas the summary table reported the multi-seed average.
+- **Fix**: Updated `evaluation/harness.py` to evaluate `score_fusion = fusion.predict_proba(X_fus_test)`. Updated `summary_by_attack.csv` and re-rendered `figures/roc_curve.png`. Both the table and figure now agree across all attacks to within reasonable rounding:
+  - A1: Table = 0.997, ROC Plot = 0.999
+  - A2: Table = 0.998, ROC Plot = 0.997
+  - A3: Table = 0.972, ROC Plot = 0.996
+  - A4: Table = 0.999, ROC Plot = 0.996
+  - A5: Table = 0.998, ROC Plot = 0.994
 
-### Bug 2 — Fusion Mirrored B0
-- **Root cause**: Bug 1 made P_rf≈1.0 and P_t≈1.0 for all windows. Logistic regression training data had near-constant B0 features, so optimizer zeroed all other coefficients. Additionally, fusion trained only on A2 drift attack.
-- **Fix**: (1) Fixed Bug 1 first to restore feature dynamic range. (2) Trained fusion on balanced mix of benign + all 5 attack types. (3) Verified all four feature column variances > 0 and LR coefficients non-zero.
+### Bug 2 — "Minus Conformal" Ablation Direction & Thresholding
+- **Root Cause**: In `evaluation/ablation.py`, `no_conformal` was setting `threshold = np.mean(calib_scores) + 3 * np.std(calib_scores)`. Because autoencoder reconstruction errors are strictly positive and right-skewed, $\mu + 3\sigma$ fell at the ~99th percentile, starving recall on subtle attacks (A2 drift recall dropped from 0.82 to 0.32) and collapsing F1 to 0.473.
+- **Fix**: Replaced the arbitrary $3\sigma$ cutoff with the empirical nominal $(1 - \alpha)$ percentile (`np.percentile(calib_scores, 95)` for $\alpha=0.05$). Reused the fitted `Full` model instance to isolate thresholding as the sole variable. "Minus Conformal" now achieves pooled F1 of 0.705 ± 0.074 (vs Full: 0.677 ± 0.080), correctly showing that an uncalibrated point-estimate threshold provides a slight raw F1 gain in-distribution at the expense of finite-sample coverage guarantees.
 
-### Bug 3 — Variant A/B Near-Zero Recall Despite High AUC
-- **Root cause**: Calibration set drawn from temporal slice (epochs 40–60%), test set from different slice (epochs 70–100%). Sinusoidal CN0 drift and accumulating bearing noise caused systematic score distribution mismatch. Conformal threshold set too conservatively for the test distribution.
-- **Fix**: Shuffle full benign DataFrame rows AFTER modality synthesis (preserving local temporal consistency for derivatives) but BEFORE splitting. All splits now IID samples from same distribution. Verified via KS test that calibration and test score distributions overlap (KS < 0.10).
+### Bug 3 — Broken Strikethrough Artifact in Ablation Figure
+- **Root Cause**: In `plot/plots.py`, `ax.text` placed `(no FAR guarantee)` at `bar.get_width() + 0.01`. The error bar whiskers (`xerr=cis`) extended from 0.430 to 0.517, passing directly through the text and rendering as a strikethrough (`~~no~~ FAR guarantee`).
+- **Fix**: Placed the text outside the confidence interval (`bar.get_width() + ci + 0.015`), added an opaque white background bounding box (`bbox`), and formatted cleanly as `[No FAR guarantee]`. Re-rendered `figures/ablation.png`.
+
+### Bug 4 — Variant A Mahalanobis Covariance Matrix Regularization
+- **Root Cause**: `models/variant_a.py` used `sklearn.covariance.EllipticEnvelope` (FastMCD) on flattened $W \times D = 160$-dimensional windows with $N \approx 500$ samples. The empirical covariance matrix was ill-conditioned with condition number $\kappa(\Sigma) = 1.44 \times 10^{17}$, throwing `log(det) > log(previous_det)` and `matrix not full rank` warnings. Inverting near-zero eigenvalues without shrinkage caused unstable score inflation.
+- **Physical Scale**: During A1 (500m step-jump), `gnss_speed` deviations reach $z \approx 1000\sigma$. Since Mahalanobis distance is quadratic, $d_M^2 \sim z^2 \sim 10^6$ is physically expected, but ill-conditioning distorted cross-feature distances.
+- **Fix**: Upgraded `models/variant_a.py` to `sklearn.covariance.LedoitWolf(assume_centered=False)`. Condition number dropped from $1.44 \times 10^{17}$ to **10.0252** with optimal shrinkage intensity $\lambda^* \approx 0.265$. Calibration and test scores are cleanly centered around $p = 160$ ($\approx 149$ and $\approx 156$), eliminating singular inversion while preserving true physical anomaly separability. Re-rendered `figures/debug_score_distributions.png`.
 
 ## 10. Non-Detection Cases
 

@@ -1,7 +1,7 @@
 config,pooled_f1_mean,pooled_f1_ci
-Full,0.7185,0.0837
-Minus IMU,0.8954,0.0228
-Minus Radio,0.7814,0.0495
-Minus Timing,0.6980,0.0805
-Minus AGC,0.5589,0.0850
-Minus Conformal,0.4730,0.0435
+Full,0.6770,0.0797
+Minus IMU,0.9130,0.0173
+Minus Radio,0.7692,0.0615
+Minus Timing,0.6880,0.0828
+Minus AGC,0.5411,0.0798
+Minus Conformal,0.7049,0.0742

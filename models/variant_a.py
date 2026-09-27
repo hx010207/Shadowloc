@@ -1,5 +1,4 @@
-import numpy as np
-from sklearn.covariance import EllipticEnvelope
+from sklearn.covariance import LedoitWolf
 from sklearn.ensemble import IsolationForest
 
 class VariantA:
@@ -8,9 +7,11 @@ class VariantA:
         method: 'mahalanobis' or 'isolation_forest'
         """
         self.method = method
+        self.contamination = contamination
+        self.random_state = random_state
         if self.method == 'mahalanobis':
-            # robust covariance estimation
-            self.model = EllipticEnvelope(contamination=contamination, random_state=random_state)
+            # Ledoit-Wolf shrinkage covariance estimation avoids singularity and ill-conditioned inversion
+            self.model = LedoitWolf(assume_centered=False)
         elif self.method == 'isolation_forest':
             self.model = IsolationForest(contamination=contamination, random_state=random_state)
         else:
