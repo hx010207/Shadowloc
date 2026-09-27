@@ -1,0 +1,8 @@
+method,empirical_far_mean,empirical_far_ci
+B0,0.6143,0.0105
+B1,0.0000,0.0000
+B2,0.0976,0.0134
+ExtBaseline,0.0481,0.0085
+Variant A,0.1811,0.0249
+Variant B,0.0847,0.0062
+Fusion,0.0503,0.0215

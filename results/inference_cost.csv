@@ -1,0 +1,3 @@
+variant,latency_ms,peak_mem_mb
+Variant A,0.54,0.03
+Variant B,3.07,0.05
