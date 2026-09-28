@@ -87,6 +87,41 @@ def a2_drift(df_in, t_start=None, drift_rate=1.0, fs=1.0):
     return df
 
 @attack_wrapper
+def a2_stealth(df_in, t_start=None, drift_rate=1.0, fs=1.0, ramp_time=10.0):
+    """Stealth power-matched carry-off attack (no RF artifacts, no speed step)."""
+    df = df_in.copy()
+    num_epochs = len(df)
+    if t_start is None:
+        t_start = int(num_epochs * 0.3)
+        
+    is_spoofed = np.zeros(num_epochs, dtype=bool)
+    is_spoofed[t_start:] = True
+    
+    time_since_start = np.zeros(num_epochs)
+    time_since_start[t_start:] = np.arange(num_epochs - t_start) / fs
+    
+    if ramp_time > 0:
+        v_drift = np.minimum(time_since_start * (drift_rate / ramp_time), drift_rate)
+        drift_distance = np.where(
+            time_since_start < ramp_time,
+            0.5 * (drift_rate / ramp_time) * (time_since_start ** 2),
+            0.5 * drift_rate * ramp_time + drift_rate * (time_since_start - ramp_time)
+        )
+    else:
+        v_drift = np.full(num_epochs, drift_rate)
+        drift_distance = time_since_start * drift_rate
+        
+    lat_shift = (drift_distance / 6378137.0) * (180 / np.pi)
+    df.loc[is_spoofed, 'gnss_lat'] += lat_shift[is_spoofed]
+    df.loc[is_spoofed, 'gnss_speed'] += v_drift[is_spoofed]
+    # Power-matched: no add_rf_artifacts call (C/N0 and AGC match benign)
+    # Timing remains consistent with true clock
+    
+    df['is_spoofed'] = is_spoofed
+    df['spoofed_delta_pos'] = drift_distance
+    return df
+
+@attack_wrapper
 def a3_intermittent(df_in, t_start=None, burst_len=30, off_len=60, jump_distance=500.0, fs=1.0):
     df = df_in.copy()
     num_epochs = len(df)

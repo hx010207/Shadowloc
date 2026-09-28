@@ -11,7 +11,7 @@ from tqdm import tqdm
 
 from evaluation.harness import (
     prepare_data, GNSS_ONLY_IDX, FEATURE_NAMES,
-    compute_detection_delay
+    compute_detection_delay, set_seed
 )
 from features.extractor import FeatureExtractor
 from models.variant_b import VariantB
@@ -44,6 +44,7 @@ def _exclude_features(X, exclude_idx):
 
 def run_ablation_single(seed, fs=1.0, W=10, alpha=0.05):
     """Run ablation study for a single seed."""
+    set_seed(seed)
     df_train, df_calib, df_val, df_test, _ = prepare_data(seed, fs)
 
     extractor = FeatureExtractor(W=W, stride=1, fs=fs)

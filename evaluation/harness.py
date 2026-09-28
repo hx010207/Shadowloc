@@ -10,6 +10,8 @@ Fixes applied:
   Missing 6: All models retrained per-seed with seed-dependent splits
 """
 
+import random
+import torch
 import numpy as np
 import pandas as pd
 from scipy.stats import ks_2samp
@@ -20,7 +22,7 @@ from tqdm import tqdm
 from data_gen.gsdc_loader import load_gsdc_trace
 from data_gen.hybrid_synthesizer import synthesize_hybrid_modalities
 from data_gen.attacks import (a1_jump, a2_drift, a3_intermittent,
-                              a4_time_bias, a5_adaptive)
+                              a4_time_bias, a5_adaptive, a2_stealth)
 from features.extractor import FeatureExtractor
 from models.variant_a import VariantA
 from models.variant_b import VariantB
@@ -28,6 +30,17 @@ from models.baselines import Baseline1, Baseline2
 from models.external_baseline import BhattiBaseline
 from models.fusion import SubDetectors, FusionLogistic
 from conformal.calibration import ConformalCalibrator
+
+
+def set_seed(seed):
+    """Set random seeds across random, numpy, and torch for 100% determinism."""
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
 
 # Feature extractor produces 16 features in this order:
@@ -95,7 +108,7 @@ def prepare_data(seed, fs=1.0):
     then shuffle rows to make all splits IID.
     Missing 6 Fix: seed controls shuffle → different splits per seed.
     """
-    np.random.seed(seed)
+    set_seed(seed)
 
     # Load and synthesize (temporal order preserved for derivative computation)
     df_a = load_gsdc_trace('Pixel4')
@@ -127,6 +140,7 @@ def prepare_data(seed, fs=1.0):
 
 def run_experiment(seed, fs=1.0, W=10, alpha=0.05, verbose=False):
     """Run one complete evaluation experiment for a single seed."""
+    set_seed(seed)
     df_train, df_calib, df_val, df_test, df_device_b = prepare_data(seed, fs)
 
     # --- Generate attacks on test split ---
@@ -387,6 +401,7 @@ def run_experiment(seed, fs=1.0, W=10, alpha=0.05, verbose=False):
 
 def run_experiment_drift(seed, drift_rate, fs=1.0, W=10, alpha=0.05):
     """Run A2 at a specific drift rate for drift sensitivity analysis."""
+    set_seed(seed)
     df_train, df_calib, df_val, df_test, _ = prepare_data(seed, fs)
 
     extractor = FeatureExtractor(W=W, stride=1, fs=fs)

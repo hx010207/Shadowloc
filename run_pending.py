@@ -24,7 +24,7 @@ from models.fusion import SubDetectors, FusionLogistic
 from conformal.calibration import ConformalCalibrator
 from features.extractor import FeatureExtractor
 from data_gen.attacks import a1_jump, a2_drift, a3_intermittent, a4_time_bias, a5_adaptive
-from evaluation.harness import prepare_data, GNSS_ONLY_IDX, ATTACKS, METHODS, extract_subdetector_features
+from evaluation.harness import prepare_data, GNSS_ONLY_IDX, ATTACKS, METHODS, extract_subdetector_features, set_seed
 import plot.plots as plots
 
 
@@ -51,6 +51,7 @@ def load_drift_rows(filepath='results/a2_drift_sensitivity.csv'):
 
 def generate_roc_and_debug_data(seed=0):
     print("Collecting ROC and debug score distributions for seed 0...")
+    set_seed(seed)
     df_train, df_calib, df_val, df_test, _ = prepare_data(seed, fs=1.0)
     extractor = FeatureExtractor(W=10, stride=1, fs=1.0)
     extractor.fit(df_train)

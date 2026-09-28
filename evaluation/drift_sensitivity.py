@@ -9,7 +9,7 @@ outperform GNSS-only methods via IMU-GNSS divergence detection.
 
 import numpy as np
 from tqdm import tqdm
-from evaluation.harness import run_experiment_drift
+from evaluation.harness import run_experiment_drift, set_seed
 
 
 DRIFT_RATES = [0.1, 0.5, 1.0, 2.0, 5.0]
@@ -33,6 +33,7 @@ def run_drift_sensitivity(num_seeds=30, drift_rates=None):
     for rate in drift_rates:
         print(f"  Drift rate = {rate:.1f} m/epoch")
         for seed in tqdm(range(num_seeds), desc=f"  rate={rate}"):
+            set_seed(seed)
             try:
                 res = run_experiment_drift(seed, drift_rate=rate)
                 for method in METHODS:
